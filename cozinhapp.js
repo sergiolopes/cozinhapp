@@ -20,7 +20,7 @@ if (Meteor.isClient) {
   });
 
   Template.registerHelper('horario', function(date) {
-    return date.getHours() + ':' + date.getMinutes();
+    return (date.getHours() + 100 + '').substr(1) + ':' + (date.getMinutes() + 100 + '').substr(1);
   });
 
 }
