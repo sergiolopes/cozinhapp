@@ -1,0 +1,21 @@
+<head>
+  <title>Cozinha Só de Cenoura</title>
+</head>
+ 
+<body>
+  <div class="container">
+    <header>
+      <h1>Pedidos</h1>
+    </header>
+ 
+    <ul>
+      {{#each pedidos}}
+        {{> pedido}}
+      {{/each}}
+    </ul>
+  </div>
+</body>
+ 
+<template name="pedido">
+  <li><strong>{{mesa}}:</strong> {{itens}} <button class="delete">&times;</button></li>
+</template>
