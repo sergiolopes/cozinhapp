@@ -1,17 +1,26 @@
 Pedidos = new Mongo.Collection("pedidos");
- 
+
 if (Meteor.isClient) {
   
+  var lastHour = new Date();
+  lastHour.setHours(lastHour.getHours()-1);
+
   Template.body.helpers({
     pedidos: function () {
-      return Pedidos.find({}, {sort: {createdAt: -1}});
+      return Pedidos.find({"ativo": true, "createdAt":{$gt: lastHour},}, {sort: {createdAt: -1}});
     }
   });
 
   Template.pedido.events({
     "click .delete": function () {
-      Pedidos.remove(this._id);
+      Pedidos.update(this._id, {
+        $set: {ativo: false}
+      });
     }
+  });
+
+  Template.registerHelper('horario', function(date) {
+    return date.getHours() + ':' + date.getMinutes();
   });
 
 }
@@ -29,15 +38,13 @@ if (Meteor.isServer) {
     } else if (!params.query.pedido) {
       res.statusCode = 400;
       res.end('Faltou incluir os itens do pedido');
-    } else if (!params.query.filial) {
-      res.statusCode = 400;
-      res.end('Passe um ID de filial (sugestão: seu email)');
     } else {
 
        var pedido = Pedidos.insert({ 
         mesa: params.query.mesa, 
         itens: params.query.pedido,
-        filial: params.query.filial,
+        ativo: true,
+        userAgent: req.headers['user-agent'],
         createdAt: new Date()
       });
 

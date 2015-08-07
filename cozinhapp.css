@@ -1,1 +1,47 @@
-/* CSS declarations go here */
+*,
+*:before,
+*:after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html body {
+	font-family: Roboto;
+}
+
+.lista-pedidos {
+	margin-top: 24px;
+}
+
+.mdl-card.pedido {
+	margin: 24px auto;
+	min-height: 0;
+	max-width: 800px;
+	width: 90%;
+}
+
+.pedido-data {
+	color: #999;
+	float: right;
+	font-size: 75%;
+	margin-right: 0.5em;
+	margin-top: 16px;
+}
+
+.sem-pedidos-container {
+	display: table;
+	height: 80vh;
+	width: 100%;
+}
+
+.sem-pedidos {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+
+	text-shadow: 0 0 2px rgba(0,0,0,0.05);
+	color: #ddd;
+	font-size: 3em;
+	font-style: italic;
+}
