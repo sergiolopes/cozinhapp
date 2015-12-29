@@ -14,16 +14,10 @@ if (Meteor.isServer) {
     var lastHour = new Date();
     lastHour.setHours(lastHour.getHours()-1);
 
-    return Pedidos.find(
-      {
+    return Pedidos.find({
         "ativo": true, 
         "createdAt": {$gt: lastHour}
-      }, 
-      {
-        sort: {createdAt: -1}
-      }
-    );
-
+      });
   });
 
   Picker.route('/novo-pedido', function(params, req, res, next) {
@@ -93,7 +87,9 @@ if (Meteor.isClient) {
   
   Template.body.helpers({
     pedidos: function () {
-      return Pedidos.find();
+      return Pedidos.find({}, {
+        sort: {createdAt: -1}
+      });
     }
   });
 
